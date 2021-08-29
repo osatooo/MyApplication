@@ -1,0 +1,39 @@
+<resources>
+    <string-array name="nutrients">
+        <item>タンパク質</item>
+        <item>脂質</item>
+        <item>飽和脂肪酸</item>
+        <item>n-6系脂肪酸</item>
+        <item>n-3脂肪酸</item>
+        <item>コレステロール</item>
+        <item>炭水化物</item>
+        <item>食物繊維</item>
+        <item>糖類</item>
+        <item>ビタミンA</item>
+        <item>ビタミンD</item>
+        <item>ビタミンE</item>
+        <item>ビタミンK</item>
+        <item>ビタミンB1</item>
+        <item>ビタミンB2</item>
+        <item>ナイアシン</item>
+        <item>ビタミンB6</item>
+        <item>ビタミンB12</item>
+        <item>葉酸</item>
+        <item>パントテン酸</item>
+        <item>ビオチン</item>
+        <item>ビタミンC</item>
+        <item>ナトリウム</item>
+        <item>カリウム</item>
+        <item>カルシウム</item>
+        <item>マグネシウム</item>
+        <item>リン</item>
+        <item>Fe</item>
+        <item>Zn</item>
+        <item>Cu</item>
+        <item>Mn</item>
+        <item>I</item>
+        <item>Se</item>
+        <item>Cr</item>
+        <item>Mo</item>
+    </string-array>
+</resources>

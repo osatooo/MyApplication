@@ -1,27 +1,51 @@
 package com.example.myapplication
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
+import android.widget.BaseAdapter
+import android.widget.CheckedTextView
 
-/**
- * Adapter の実装（データを結びつけ、ViewHolder の生成とデータ反映を行う）
- */
-class MyAdapter(private val data: IntArray) : RecyclerView.Adapter<MyViewHolder>() {
-    /** 表示用データの要素数（ここでは IntArray のサイズ） */
-    override fun getItemCount(): Int = data.size
+class MyAdapter(
+    private val context: Context,
+    private var itemList: Array<String>
+) : BaseAdapter() {
 
-    /** 新しく ViewHolder オブジェクトを生成するための実装 */
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val inflater = LayoutInflater.from(parent.context)
-        return MyViewHolder(inflater.inflate(R.layout.item, parent, false))
+    override fun getCount(): Int {
+        return itemList.size
     }
 
-    /** position の位置のデータを使って、表示内容を適切に設定（更新）する */
-    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val num = data[position]
-//        holder.label.text = "Element-$num"
-        holder.button.text = "Button-$num"
+    override fun getItem(position: Int): Any {
+        return itemList.get(position)
+    }
+
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
+
+    @SuppressLint("ViewHolder")
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
+        val inflater = LayoutInflater.from(context)
+        val convertView = inflater.inflate(R.layout.item, parent, false)
+        val checkedTextView = convertView.findViewById<CheckedTextView>(R.id.checked_text_view)
+
+        //viewに要素を設定
+        checkedTextView.setText(itemList[position])
+
+        // ①viewにクリックリスナーを設定
+        checkedTextView.setOnClickListener {
+            if (checkedTextView.isChecked) {
+                //押し直した時にAndroidのマークになるように設定
+                checkedTextView.setCheckMarkDrawable(R.drawable.ic_android_black_24dp)
+                checkedTextView.isChecked = false
+            } else {
+                //1回押した時にチェックマークが出るように設定
+                checkedTextView.setCheckMarkDrawable(R.drawable.ic_baseline_check_24)
+                checkedTextView.isChecked = true
+            }
+        }
+        return checkedTextView
     }
 }

@@ -5,66 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <Button
-        android:id="@+id/button"
+    <ListView
+        android:id="@+id/list_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Button"
+        android:layout_height="match_parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         />
-
-    <ImageButton
-        android:id="@+id/image_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="0dp"
-        android:contentDescription="image_view"
-        android:src="@drawable/ic_android_black_24dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/button"
-        />
-
-    <RadioGroup
-        android:id="@+id/radio_group1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/image_button">
-
-        <RadioButton
-            android:id="@+id/radio_button1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="radio_button1"
-            android:layout_weight="1" />
-
-        <RadioButton
-            android:id="@+id/radio_button2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="radio_button2"
-            android:layout_weight="1" />
-
-        <RadioButton
-            android:id="@+id/radio_button3"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="radio_button3"
-            android:layout_weight="1" />
-    </RadioGroup>
-
-    <ToggleButton
-        android:id="@+id/toggle_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/radio_group1"/>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

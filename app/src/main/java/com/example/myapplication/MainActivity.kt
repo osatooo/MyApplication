@@ -1,53 +1,44 @@
 package com.example.myapplication
 
-import android.annotation.SuppressLint
-import android.app.Activity
-import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.View
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.Toast
-import androidx.appcompat.widget.AppCompatButton
-import androidx.appcompat.widget.AppCompatImageButton
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.button.MaterialButton
+import android.widget.BaseAdapter
+import android.widget.ListView
+import androidx.appcompat.app.AppCompatActivity
 
-class MainActivity : AppCompatActivity(), View.OnClickListener {
+
+class MainActivity : AppCompatActivity(){
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.button_imgbtn)
+        setContentView(R.layout.activity_main)
 
-        val button = findViewById<Button>(R.id.button)
-        button.setOnClickListener(this)
-        val button2 = findViewById<Button>(R.id.appcompat_button)
-        button2.setOnClickListener(this)
-        val button3 = findViewById<Button>(R.id.material_button)
-        button3.setOnClickListener(this)
-        findViewById<ImageButton>(R.id.image_button).setOnClickListener(this)
-        findViewById<AppCompatImageButton>(R.id.appcompat_image_button).setOnClickListener(this)
+        //方法② arrayからとってくる
+        val itemList = resources.getStringArray(R.array.nutrients)
 
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//            val className = button.accessibilityClassName
-//            Log.d("accessibilityClassName", className.toString())
+//        val il2 = mutableListOf<MyAdapter.Item>()
+//        for (i in 0 until itemList.size)
+//        il2.add(MyAdapter.Item(itemList[i], false))
+
+        //activity_main.xmlに定義したListViewを読み込む
+        val listView = findViewById<ListView>(R.id.list_view)
+        // リスト項目とListViewを対応付けるArrayAdapterを用意する
+        // ArrayAdapterではcontext、1項目分のレイアウトファイル、項目を定義した配列を指定する
+        val adapter: BaseAdapter = MyAdapter(this, itemList)
+        listView.adapter = adapter
+//        listView.setOnItemClickListener { parent, view, position, id ->
+//            val v = view as CheckedTextView
+//            if (v.isChecked){
+//                Log.d("isClicked","true")
+//                v.setCheckMarkDrawable(R.drawable.ic_android_black_24dp)
+//                v.isChecked = false
+//                map[position] = false
+//            } else {
+//                Log.d("isClicked","false")
+//                v.setCheckMarkDrawable(R.drawable.ic_baseline_check_24)
+//                v.isChecked = true
+//                map[position] = true
+//            }
 //        }
-//        button.setBackgroundResource(R.drawable.ic_android_black_24dp)
-//        val a = button2.setBackgroundResource(R.drawable.ic_android_black_24dp)
-//        button3.setBackgroundResource(R.drawable.ic_android_black_24dp)
-    }
-
-    override fun onClick(v: View) {
-        when(v.id){
-            R.id.button -> Toast.makeText(this,"button pushed.",Toast.LENGTH_SHORT).show()
-            R.id.appcompat_button -> Toast.makeText(this,"appcompatbutton pushed.",Toast.LENGTH_SHORT).show()
-            R.id.material_button -> Toast.makeText(this,"materialbutton pushed.",Toast.LENGTH_SHORT).show()
-            R.id.image_button -> Toast.makeText(this,"imagebutton pushed.",Toast.LENGTH_SHORT).show()
-            R.id.appcompat_image_button -> Toast.makeText(this,"appcompatimagebutton pushed.",Toast.LENGTH_SHORT).show()
-        }
     }
 }
-
