@@ -1,6 +1,5 @@
 package com.example.myapplication
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -25,27 +24,43 @@ class MyAdapter(
         return position.toLong()
     }
 
-    @SuppressLint("ViewHolder")
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val inflater = LayoutInflater.from(context)
-        val convertView = inflater.inflate(R.layout.item, parent, false)
-        val checkedTextView = convertView.findViewById<CheckedTextView>(R.id.checked_text_view)
 
-        //viewに要素を設定
-        checkedTextView.setText(itemList[position])
+    private val map = mutableMapOf<Int, Boolean>()//①mapのインスタンスを生成
+    data class MyViewHolder(val checkedTextView: CheckedTextView)
 
-        // ①viewにクリックリスナーを設定
-        checkedTextView.setOnClickListener {
-            if (checkedTextView.isChecked) {
-                //押し直した時にAndroidのマークになるように設定
-                checkedTextView.setCheckMarkDrawable(R.drawable.ic_android_black_24dp)
-                checkedTextView.isChecked = false
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+        val (holder, view) = if(convertView == null) {
+            // 初回時など、convertViewがnullの場合のみinflateする
+            val inflater = LayoutInflater.from(context)
+            val v = inflater.inflate(R.layout.item, parent, false)
+            val checkedTextView = v.findViewById<CheckedTextView>(R.id.checked_text_view)
+            val viewHolder = MyViewHolder(checkedTextView)
+            v.tag = viewHolder
+            viewHolder to v
+        } else {
+            // 再利用時など、convertViewがnullでない場合はviewを再利用する
+            convertView.tag as MyViewHolder to convertView
+        }
+        holder.checkedTextView.text = itemList[position]
+        if (map[position] == true) {//③map[position]がtrueのときチェックマークを設置
+            holder.checkedTextView.setCheckMarkDrawable(R.drawable.ic_baseline_check_24)
+        } else { //③map[position]がnullもしくはfalseのときAndroidマークを設置
+            holder.checkedTextView.setCheckMarkDrawable(R.drawable.ic_android_black_24dp)
+        }
+
+        // viewにクリックリスナーを設定
+        holder.checkedTextView.setOnClickListener {
+            val view = it as CheckedTextView
+            if (map[position] == true) {
+                //③map[position]がtrueのときチェックマークを設置
+                view.setCheckMarkDrawable(R.drawable.ic_android_black_24dp)
+                map[position] = false //②positionをキーとして真偽値を追加
             } else {
-                //1回押した時にチェックマークが出るように設定
-                checkedTextView.setCheckMarkDrawable(R.drawable.ic_baseline_check_24)
-                checkedTextView.isChecked = true
+                //③map[position]がnullもしくはfalseのときAndroidマークを設置
+                view.setCheckMarkDrawable(R.drawable.ic_baseline_check_24)
+                map[position] = true //②positionをキーとして真偽値を追加
             }
         }
-        return checkedTextView
+        return view
     }
 }
